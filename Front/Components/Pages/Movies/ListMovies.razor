@@ -1,0 +1,57 @@
+@page "/movies"
+
+@using Dtos
+@using Service
+
+@inject MovieService MovieService
+@inject NavigationManager NavigationManager
+
+<h1>Movie List</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Director</th>
+        <th>Release Date</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var movie in movies)
+    {
+        <tr>
+            <td>@movie.Name</td>
+            <td>@movie.Director</td>
+            <td>@movie.ReleaseDate.Year/@movie.ReleaseDate.Month/@movie.ReleaseDate.Day</td>
+            <td>
+                <button type="button" class="btn btn-primary" @onclick="() => OnUpdate(movie.Name)">Update</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-secondary" @onclick="() => OnDelete(movie.Name)">Delete</button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<GetMovieDto> movies;
+
+    protected override void OnInitialized()
+    {
+        movies = MovieService.GetAll();
+    }
+
+    private void OnUpdate(string title)
+    {
+        NavigationManager.NavigateTo($"/movies/update/{title}");
+    }
+
+    private void OnDelete(string title)
+    {
+        MovieService.Delete(title);
+        NavigationManager.NavigateTo(NavigationManager.Uri, true);
+    }
+}
