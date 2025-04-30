@@ -9,6 +9,6 @@ public class MemoryDbTests
     public void InitListsTests()
     {
         MemoryDb db = new MemoryDb();
-        Assert.Equals(db.Movies.Count, 0);
+        Assert.AreEqual(db.Movies.Count, 0);
     }
 }
