@@ -24,7 +24,7 @@ public class MovieTests
         m.Director = "Tomas";
         m.Name = "Martin";
         var result = _service.CreateMovie(m);
-        Assert.AreEqual(result.Name, "va a fallar");
+        Assert.AreEqual(result.Name, m.Name);
     }
     
     [TestMethod]
