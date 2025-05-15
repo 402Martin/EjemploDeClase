@@ -42,6 +42,6 @@ public class MovieTests
     [ExpectedException(typeof(NullReferenceException))]
     public void GetMovieByNameThrowsArgumentExceptionTest()
     {
-        var result = _service.GetMovieByName("Martin");
+        var result = _service.GetMovieByName("Martinnn");
     }
 }
