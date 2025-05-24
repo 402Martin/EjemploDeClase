@@ -1,25 +1,15 @@
-﻿using Dtos;
-
-namespace Domain;
+﻿namespace Domain;
 
 public class Movie
 {
     public string Name;
     public string Director;
     public DateTime ReleaseDate = DateTime.Today;
-    public Movie(CreateMovieDto dto)
-    { 
-        Director = dto.Director;
-        Name = dto.Name;
+    public Movie(string name, string director, DateTime releaseDate)
+    {
+        Name = name;
+        Director = director;
+        ReleaseDate = releaseDate;
     }
 
-    public GetMovieDto ToGetMovieDto()
-    {
-        return new GetMovieDto()
-        {
-            Director = Director,
-            ReleaseDate = DateOnly.FromDateTime(ReleaseDate.Date),
-            Name = Name
-        };
-    }
 }
