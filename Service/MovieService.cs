@@ -15,7 +15,7 @@ public class MovieService
     
     public Movie CreateMovie(CreateMovieDto movie)
     {
-        Movie movieToAdd = new Movie(movie);
+        Movie movieToAdd = new Movie(movie.Name, movie.Director, DateTime.Today);
         _db.Movies.Add(movieToAdd);
         return movieToAdd;
     }
@@ -33,9 +33,19 @@ public class MovieService
     
     public List<GetMovieDto> GetAll()
     {
-        return _db.Movies.Select(movie => movie.ToGetMovieDto()).ToList();
+        return _db.Movies.Select(m => FromMovieToGetDTO(m)).ToList();
     }
-    
+
+    private GetMovieDto FromMovieToGetDTO(Movie movie)
+    {
+        return new GetMovieDto
+        {
+            Director = movie.Director,
+            ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate.Date),
+            Name = movie.Name
+        };
+    }
+
     public Movie UpdateMovie(UpdateMovieDto dataIn)
     {
         var movieToUpdate = GetMovieByName(dataIn.OldName);
